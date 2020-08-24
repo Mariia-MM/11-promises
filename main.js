@@ -1,20 +1,25 @@
-function getRandomChinese(length) {
-  let signEl = document.createElement(`h2`);
-  signEl.className = `line`;
-  if (length < 0) {
-    return Promise.reject("wrong input");
-  } else {
+let signEl = document.createElement(`h2`);
+signEl.className = `line`;
+function delay() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 50);
+  });
+}
+async function getRandomChinese(length) {
+  try {
     for (let i = 0; i < length; i++) {
-      setTimeout(() => {
-        const numb = Date.now().toString().substr(-5);
-        signEl = document.querySelector(`.line`);
-        signEl.innerHTML = signEl.innerHTML + String.fromCharCode(numb);
-      }, i * 50000);
+      const numb = Date.now().toString().substr(-5);
+      await delay();
+      document.body.append(String.fromCharCode(numb));
     }
-    console.log(`resolving time:`, (length * 50000) / 1000, `ms`);
-    document.body.append(signEl);
+  } catch {
+    if (length < 0) {
+      return Promise.reject("wrong input");
+    }
 
-    return Promise.resolve();
+    console.log(`resolving time:`, length * 50, `ms`);
   }
 }
-getRandomChinese(3);
+getRandomChinese(4);
