@@ -14,6 +14,7 @@ async function getRandomChinese(length) {
       await delay();
       document.body.append(String.fromCharCode(numb));
     }
+    document.body.append(` `, length * 50, `ms`);
   } catch {
     if (length < 0) {
       return Promise.reject("wrong input");
